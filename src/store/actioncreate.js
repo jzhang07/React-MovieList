@@ -35,9 +35,10 @@ export const initListAction = (data) => ({
 })
 export const getList = () =>{
   return (dispatch) =>{
-    axios.get('/api/homeList.json')
+    axios.get('/api/moviedata.json')
     .then((res)=>{
         const data = res.data;
+       console.log(res)
         const action = initListAction(data);
         dispatch(action)
     })

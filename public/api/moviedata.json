@@ -2,36 +2,32 @@
     "sucesss":true,
     "data":{
         "mylist": [{
-            "trigger":false,
             "id":1,
             "title": "Futurama",
             "img":"http://cdn1.nflximg.net/webp/7621/3787621.webp"
-        },{
-            "trigger":false,
+        },{  
          "id":2,
          "title": "The Interview",
          "img":"http://cdn1.nflximg.net/webp/1381/11971381.webp"
      },{
-        "trigger":false,
+        
       "id":3,
       "title": "Gilmore Girls",
       "img":"http://cdn1.nflximg.net/webp/7451/11317451.webp"
   }],
      "recommendations": [
         {   "like":false,
-            "trigger":false,
             "id":4,
             "title": "Family Guy",
             "img":"http://cdn5.nflximg.net/webp/5815/2515815.webp"
         },{
-            "trigger":false,
+            
             "like":false,
             "id":5,
             "title": "The Croods",
             "img":"http://cdn3.nflximg.net/webp/2353/3862353.webp"
       },
     {"like":false,
-        "trigger":false,
       "id":6,
       "title": "Friends",
       "img":"http://cdn0.nflximg.net/webp/3200/9163200.webp"

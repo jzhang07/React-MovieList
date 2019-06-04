@@ -36,8 +36,17 @@ export default (state = defaultState, action)=>{
                 return newState;
         case actiontypes.INIT_LIST_ACTION:
                 var newState = JSON.parse(JSON.stringify(state));
-                newState.mylist = action.data.data.mylist
-                newState.recommendations= action.data.data.recommendations
+                var mylistdata = action.data.data.mylist.map((obj) =>{
+                 obj.trigger = false;
+                 return obj
+                });
+                var recommendationsdata = action.data.data.recommendations.map((obj) =>{
+                        obj.trigger = false;
+                        return obj
+                       });
+                      
+                newState.mylist = mylistdata
+                newState.recommendations= recommendationsdata
                 return newState;
         case actiontypes.DELETE_ITEM:
                 var newState = JSON.parse(JSON.stringify(state));
