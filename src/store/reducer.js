@@ -25,9 +25,14 @@ export default (state = defaultState, action)=>{
                return newState;
         case actiontypes.ADD_ITEM:
                 var newState = JSON.parse(JSON.stringify(state));
-                newState.recommendations[action.index].trigger= false
-                newState.mylist = [...newState.mylist,newState.recommendations[action.index]]
-                newState.recommendations.splice(action.index,1)
+                
+                if(!newState.recommendations[action.index].like){
+                        newState.recommendations[action.index].trigger= false;
+                        newState.mylist = [...newState.mylist,newState.recommendations[action.index]]
+                        newState.recommendations[action.index].like = true;
+                }
+                
+                //newState.recommendations.splice(action.index,1)
                 return newState;
         case actiontypes.INIT_LIST_ACTION:
                 var newState = JSON.parse(JSON.stringify(state));
