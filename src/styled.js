@@ -4,6 +4,13 @@ export const MyList = styled.ul`
   
   
 `
+export const Page = styled.ul`
+  
+  background-color:black;
+  color:white;
+  height:1000px;
+  
+`
 export const Recommend = styled.ul`
   
 position:absolute;

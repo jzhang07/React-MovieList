@@ -1,48 +1,45 @@
 import * as actiontypes from './actiontypes'
 const defaultState ={
-    inputValue:'',
-    list:[],
     mylist:[],
     recommendations:[],
     
 }
 
 export default (state = defaultState, action)=>{
-    if(action.type=== actiontypes.CHANGE_INPUT_VALUE){
-        const newState = JSON.parse(JSON.stringify(state));
-        newState.inputValue = action.value;
-        return newState
+    switch(action.type){
+        case actiontypes.MOUSEENTER:
+                var newState = JSON.parse(JSON.stringify(state));
+                newState.mylist[action.index].trigger=true;
+                return newState;
+        case actiontypes.MOUSELEAVE:
+                var newState = JSON.parse(JSON.stringify(state));
+                newState.mylist[action.index].trigger=false;
+                return newState;
+        case actiontypes.RECENTER:
+                var newState = JSON.parse(JSON.stringify(state));
+                newState.recommendations[action.index].trigger=true;
+               return newState;
+        case actiontypes.RECLEAVE:
+                var newState = JSON.parse(JSON.stringify(state));
+                newState.recommendations[action.index].trigger=false;
+               return newState;
+        case actiontypes.ADD_ITEM:
+                var newState = JSON.parse(JSON.stringify(state));
+                newState.recommendations[action.index].trigger= false
+                newState.mylist = [...newState.mylist,newState.recommendations[action.index]]
+                newState.recommendations.splice(action.index,1)
+                return newState;
+        case actiontypes.INIT_LIST_ACTION:
+                var newState = JSON.parse(JSON.stringify(state));
+                newState.mylist = action.data.data.mylist
+                newState.recommendations= action.data.data.recommendations
+                return newState;
+        case actiontypes.DELETE_ITEM:
+                var newState = JSON.parse(JSON.stringify(state));
+                newState.mylist.splice(action.index,1)
+                return newState;
+        default:
+   return state;
     }
-    if(action.type=== actiontypes.TRIGGER){
-        const newState = JSON.parse(JSON.stringify(state));
-       newState.mylist[action.index].trigger=!newState.mylist[action.index].trigger;
-       return newState
-    }
-    if(action.type=== actiontypes.RETRIGGER){
-        const newState = JSON.parse(JSON.stringify(state));
-        newState.recommendations[action.index].trigger=!newState.recommendations[action.index].trigger;
-       return newState
-    }
-    if(action.type=== actiontypes.ADD_ITEM){
-        const newState = JSON.parse(JSON.stringify(state));
-       
-        newState.mylist = [...newState.mylist,newState.recommendations[action.index]]
-        newState.recommendations.splice(action.index,1)
-       
-        return newState
-    }
-    if(action.type=== actiontypes.INIT_LIST_ACTION){
-        const newState = JSON.parse(JSON.stringify(state));
-        newState.mylist = action.data.data.mylist
-        newState.recommendations= action.data.data.recommendations
-      
-        return newState
-    }
-    if(action.type=== actiontypes.DELETE_ITEM){
-        const newState = JSON.parse(JSON.stringify(state));
-        newState.mylist.splice(action.index,1)
-        return newState;
-      
-    }
-return state
+    
 }

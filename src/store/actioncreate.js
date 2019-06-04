@@ -9,14 +9,21 @@ export const getButtonClick = (index) =>({
     index
 })
 export const mouseEnter = (index) =>({
-    type:actiontypes.TRIGGER,
+    type:actiontypes.MOUSEENTER,
+    index
+})
+export const mouseLeave = (index) =>({
+    type:actiontypes.MOUSELEAVE,
     index
 })
 export const mouseRecEnter = (index) =>({
-    type:actiontypes.RETRIGGER,
+    type:actiontypes.RECENTER,
     index
 })
-
+export const mouseRecLeave = (index) =>({
+    type:actiontypes.RECLEAVE,
+    index
+})
 export const getDeletItem = (index) =>({
     type:actiontypes.DELETE_ITEM,
     index

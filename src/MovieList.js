@@ -1,8 +1,8 @@
-import React, { Fragment,Component } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { mouseRecEnter,mouseEnter,getInputChangeAction,getButtonClick,getDeletItem,getList } from './store/actioncreate'
+import { mouseRecEnter,mouseRecLeave,mouseEnter,mouseLeave,getInputChangeAction,getButtonClick,getDeletItem,getList } from './store/actioncreate'
 import store from './store/index.js';
-import {MyListItem,MyList,Recommend} from './styled'
+import {MyListItem,MyList,Recommend,Page} from './styled'
 class MovieList extends Component{
     constructor(props){
           super(props)
@@ -16,79 +16,55 @@ componentDidMount(){
    
 }
 render() {
-    const { handleRecMouseEnter,handleMouseEnter,handleClick,handleDel,mylist,recommendations } =this.props;
+    const { handleRecMouseEnter,handleMouseEnter,handleMouseLeave,handleRecMouseLeave,handleClick,handleDel,mylist,recommendations } =this.props;
     
     return(
-    <Fragment>
-
-<div>
-<MyList>
-<div>Mylist</div>
-{
-    mylist.map((item,index) =>{
-    if(item.trigger){
-        return(
-        <MyListItem 
-        onMouseEnter = {() =>handleMouseEnter(index)}  
-        onMouseLeave = {() =>handleMouseEnter(index)} 
-        key ={item.id}
-            >
+    <Page>
         <div>
-        <img src={item.img} alt="" />
-        </div>
-        {item.title}
-        <button onClick={()=>{handleDel(index)} }>Remove</button>
-        </MyListItem>
-        )
-    }else{
-        return(
-        <MyListItem key ={item.id}
-        onMouseEnter = {() =>handleMouseEnter(index)}  
-        onMouseLeave = {() =>handleMouseEnter(index)} 
-        >
-        <div><img src={item.img} alt=""/></div>
-        {item.title}
-        </MyListItem>
-        )
-    }
-})}
-</MyList>
-</div>
-<div>
-<Recommend >
-<div>recommendations</div>
-{
-    recommendations.map((item,index) =>{
-        if(item.trigger){
-            return(
-            <MyListItem 
-            key ={item.id}
-            onMouseEnter = {() =>handleRecMouseEnter(index)}  
-            onMouseLeave = {() =>handleRecMouseEnter(index)} 
-            >
-            <div><img src={item.img} alt=""/></div>
-            {item.title}
-            <button onClick={()=>{handleClick(index)} }>ADD</button>
-            </MyListItem>
-            )
-        }else{
-            return(
-            <MyListItem 
-            key ={item.id}
-            onMouseEnter = {() =>handleRecMouseEnter(index)}  
-            onMouseLeave = {() =>handleRecMouseEnter(index)} 
-            >
-            <div><img src={item.img} alt=""/></div>
-            {item.title}
-            </MyListItem>
-            )
-        }
+        <MyList>
+        <div>Mylist</div>
+        {
+        mylist.map((item,index) =>{
 
-})
-}
-</Recommend>
-</div>
-</Fragment>
+            return(
+            <MyListItem 
+            onMouseEnter = {() =>handleMouseEnter(index)}  
+            onMouseLeave = {() =>handleMouseLeave(index)} 
+            key ={item.id}
+                >
+            <div>
+            <img src={item.img} alt="" />
+            </div>
+            {item.title}
+            {item.trigger ? <button onClick={()=>{handleDel(index)} }>Remove</button>:null}
+            </MyListItem>
+            )
+
+        })}
+        </MyList>
+        </div>
+        <div>
+        <Recommend >
+        <div>recommendations</div>
+        {
+            recommendations.map((item,index) =>{
+            
+                    return(
+                    <MyListItem 
+                    key ={item.id}
+                    onMouseEnter = {() =>handleRecMouseEnter(index)}  
+                    onMouseLeave = {() =>handleRecMouseLeave(index)} 
+                    >
+                    <div><img src={item.img} alt=""/></div>
+                    {item.title}
+                    {item.trigger ?<button onClick={()=>{handleClick(index)} }>ADD</button>:null}
+                    </MyListItem>
+                    )
+        })
+        }
+        </Recommend>
+        </div>
+</Page>
     )
 }
 }
@@ -116,9 +92,16 @@ const mapDispatchToProps = (dispatch) =>{
         dispatch(action);
        
     },
+    handleMouseLeave(index){
+        const action = mouseLeave(index);
+        dispatch(action);
+    },
     handleRecMouseEnter(index){
         const action = mouseRecEnter(index);
-       
+        dispatch(action);
+    },
+    handleRecMouseLeave(index){
+        const action = mouseRecLeave(index);
         dispatch(action);
     },
     handleDel(index){
