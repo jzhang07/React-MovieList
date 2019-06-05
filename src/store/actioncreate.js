@@ -38,7 +38,6 @@ export const getList = () =>{
     axios.get('/api/moviedata.json')
     .then((res)=>{
         const data = res.data;
-       console.log(res)
         const action = initListAction(data);
         dispatch(action)
     })

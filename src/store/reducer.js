@@ -38,19 +38,24 @@ export default (state = defaultState, action)=>{
                 var newState = JSON.parse(JSON.stringify(state));
                 var mylistdata = action.data.data.mylist.map((obj) =>{
                  obj.trigger = false;
+                 obj.like = false;
                  return obj
                 });
                 var recommendationsdata = action.data.data.recommendations.map((obj) =>{
                         obj.trigger = false;
+                        obj.like = false;
                         return obj
-                       });
-                      
+                       }); 
                 newState.mylist = mylistdata
                 newState.recommendations= recommendationsdata
                 return newState;
         case actiontypes.DELETE_ITEM:
                 var newState = JSON.parse(JSON.stringify(state));
-                newState.mylist.splice(action.index,1)
+               var rmdata =  newState.recommendations.find((x) =>{
+                        return x.id === newState.mylist[action.index].id
+                })
+                rmdata.like= false;
+                newState.mylist.splice(action.index,1);
                 return newState;
         default:
    return state;
