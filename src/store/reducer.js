@@ -51,11 +51,16 @@ export default (state = defaultState, action)=>{
                 return newState;
         case actiontypes.DELETE_ITEM:
                 var newState = JSON.parse(JSON.stringify(state));
-               var rmdata =  newState.recommendations.find((x) =>{
+                var rmdata =  newState.recommendations.find((x) =>{
                         return x.id === newState.mylist[action.index].id
                 })
-                rmdata.like= false;
-                newState.mylist.splice(action.index,1);
+                if(rmdata){
+                        rmdata.like= false;
+                        newState.mylist.splice(action.index,1);
+                }
+                else{
+                        newState.mylist.splice(action.index,1);
+                }
                 return newState;
         default:
    return state;
