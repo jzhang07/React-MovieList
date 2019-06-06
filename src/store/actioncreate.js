@@ -35,9 +35,13 @@ export const initListAction = (data) => ({
 })
 export const getList = () =>{
   return (dispatch) =>{
-    axios.get('/api/moviedata.json')
+    axios.get(//'http://localhost:4000/data'
+    "api/moviedata.json"
+    )
     .then((res)=>{
-        const data = res.data;
+        alert('I did the http request by using Thunk Middleware, the http call is in actioncreate \n however if you need the mock server, you can using the API folder to create a json-server in port:4000, than using the code line38 and line44 to replace line39 and line43');
+        const data = res.data.data;
+       // const data = res.data
         const action = initListAction(data);
         dispatch(action)
     })

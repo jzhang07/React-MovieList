@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { mouseRecEnter,mouseRecLeave,mouseEnter,mouseLeave,getInputChangeAction,getButtonClick,getDeletItem,getList } from './store/actioncreate'
+import {  mouseRecEnter,mouseRecLeave,mouseEnter,mouseLeave,getInputChangeAction,getButtonClick,getDeletItem,getList } from './store/actioncreate'
 import store from './store/index.js';
-import {MyListItem,MyList,Recommend,Page} from './styled'
+import Ul from './ul'
+import {Page,Logo} from './styled'
 class MovieList extends Component{
     constructor(props){
           super(props)
+
+          this.state = {
+
+            }
+            
        }
 
 
@@ -13,58 +19,16 @@ class MovieList extends Component{
 componentDidMount(){
     const action = getList();
     store.dispatch(action);
-   
 }
 render() {
     const { handleRecMouseEnter,handleMouseEnter,handleMouseLeave,handleRecMouseLeave,handleClick,handleDel,mylist,recommendations } =this.props;
     
     return(
     <Page>
-        <div>
-        <MyList>
-        <div>Mylist</div>
-        {
-        mylist.map((item,index) =>{
-
-            return(
-            <MyListItem 
-            onMouseEnter = {() =>handleMouseEnter(index)}  
-            onMouseLeave = {() =>handleMouseLeave(index)} 
-            key ={item.id}
-                >
-            <div>
-            <img src={item.img} alt="" />
-            </div>
-            {item.title}
-            {item.trigger ? <button onClick={()=>{handleDel(index)} }>Remove</button>:null}
-            </MyListItem>
-            )
-
-        })}
-        </MyList>
-        </div>
-        <div>
-        <Recommend >
-        <div>recommendations</div>
-        {
-            recommendations.map((item,index) =>{
-            
-                    return(
-                    <MyListItem 
-                    key ={item.id}
-                    onMouseEnter = {() =>handleRecMouseEnter(index)}  
-                    onMouseLeave = {() =>handleRecMouseLeave(index)} 
-                    >
-                    <div><img src={item.img} alt=""/></div>
-                    {item.title}
-                    {item.trigger ?<button onClick={()=>{handleClick(index)} }>ADD</button>:null}
-                    </MyListItem>
-                    )
-        })
-        }
-        </Recommend>
-        </div>
-</Page>
+        <Logo />
+        <Ul name= {'MyList'} data = {mylist} handleMouseEn = {handleMouseEnter} handleMouseLe = {handleMouseLeave} handeleBt={handleDel} btn ={'Remove'}/>
+        <Ul name= {'Recommendations'} data = {recommendations} handleMouseEn = {handleRecMouseEnter} handleMouseLe = {handleRecMouseLeave} handeleBt={handleClick} btn ={'Add'}/>
+    </Page>
     )
 }
 }
@@ -113,8 +77,6 @@ const mapDispatchToProps = (dispatch) =>{
 
 const mapStateToProps = (state) =>{
   return {
-     inputValue: state.inputValue,
-     list:state.list,
      mylist:state.mylist,
      recommendations:state.recommendations,
      trigger:state.trigger,
