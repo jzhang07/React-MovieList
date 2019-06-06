@@ -25,6 +25,7 @@ class Ul extends Component {
                 <img src={item.img} alt="" />
                 </div>
                 {item.title}
+                <br />
                 {item.trigger ? <button  onClick={()=>{this.props.handeleBt(index)} }>{this.props.btn}</button>:null}
                 </MyListItem>
                 )

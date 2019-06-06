@@ -25,11 +25,14 @@ export default (state = defaultState, action)=>{
                return newState;
         case actiontypes.ADD_ITEM:
              newState = JSON.parse(JSON.stringify(state));
-                if(!newState.recommendations[action.index].like){
-                newState.recommendations[action.index].trigger= false;
+                // if(!newState.recommendations[action.index].like){
+                // newState.recommendations[action.index].trigger= false;
+                // newState.mylist = [...newState.mylist,newState.recommendations[action.index]]
+                // newState.recommendations[action.index].like = true;
+                // }
+                newState.recommendations[action.index].trigger = false;
                 newState.mylist = [...newState.mylist,newState.recommendations[action.index]]
-                newState.recommendations[action.index].like = true;
-                }
+                newState.recommendations.splice(action.index,1);
                 return newState;
         case actiontypes.INIT_LIST_ACTION:
              newState = JSON.parse(JSON.stringify(state));
@@ -59,6 +62,7 @@ export default (state = defaultState, action)=>{
                 var mylistdatas =  newState.mylist.find((x) =>{
                         return x.id === newState.mylist[action.index].id
                 })
+                mylistdatas.trigger = false;
                 newState.mylist.splice(action.index,1);
                 newState.recommendations.push(mylistdatas);
                        

@@ -19,6 +19,7 @@ class MovieList extends Component{
 componentDidMount(){
     const action = getList();
     store.dispatch(action);
+   
 }
 render() {
     const { handleRecMouseEnter,handleMouseEnter,handleMouseLeave,handleRecMouseLeave,handleClick,handleDel,mylist,recommendations } =this.props;
